@@ -1,0 +1,51 @@
+<!-- templates/index.html - Home page with form and gallery. -->
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+  <h1>StyleMate: AI Fashion Advisor</h1>
+  <p>Get outfit suggestions for any occasion!</p>
+  
+  <!-- Form for suggestions -->
+  <form method="POST">
+    <div class="mb-3">
+      <label for="event" class="form-label">Event (e.g., Party, Interview)</label>
+      <input type="text" class="form-control" id="event" name="event" required>
+    </div>
+    <div class="mb-3">
+      <label for="clothes" class="form-label">Available Clothes (e.g., blue jeans, white shirt)</label>
+      <textarea class="form-control" id="clothes" name="clothes" rows="3" required></textarea>
+    </div>
+    <div class="form-check mb-3">
+      <input type="checkbox" class="form-check-input" id="use_ai" name="use_ai">
+      <label class="form-check-label" for="use_ai">Use AI Suggestions</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Get Suggestion</button>
+  </form>
+  
+  {% if use_ai_notice %}
+    <div class="alert alert-warning mt-3">{{ use_ai_notice }}</div>
+  {% endif %}
+  {% if suggestion %}
+    <div class="mt-3 card">
+      <div class="card-body">
+        <h5>Your Outfit Suggestion:</h5>
+        {{ suggestion | safe }}
+      </div>
+    </div>
+  {% endif %}
+  
+  <!-- Outfit Gallery -->
+  <h3 class="mt-5">Inspiration Gallery</h3>
+  <div class="row">
+    {% for i in range(1, 9) %}
+      <div class="col-md-3 mb-4">
+        <div class="card">
+          <img src="{{ url_for('static', filename='images/outfit' + i|string + '.jpg') }}" class="card-img-top" alt="Outfit {{ i }}">
+          <div class="card-body">
+            <p class="card-text">Outfit {{ i }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
