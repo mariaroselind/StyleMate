@@ -1,0 +1,8 @@
+<!-- templates/profile.html - User profile page. -->
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+  <h1>Profile</h1>
+  <p>Welcome, {{ username }}!</p>
+  <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+{% endblock %}
